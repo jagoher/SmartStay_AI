@@ -1,0 +1,22 @@
+﻿# Interfaz
+streamlit
+
+# Datos
+pandas
+numpy
+
+# Machine Learning
+scikit-learn
+xgboost
+joblib
+
+# Experimentos
+mlflow
+
+# Visualización
+matplotlib
+seaborn
+
+# Automatización n8n
+requests
+python-dotenv

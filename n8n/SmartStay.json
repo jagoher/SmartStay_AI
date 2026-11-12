@@ -1,0 +1,1028 @@
+{
+  "name": "SmartStay",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "/smartstay",
+        "authentication": "headerAuth",
+        "responseMode": "lastNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.2,
+      "position": [
+        0,
+        0
+      ],
+      "id": "06e149b4-8976-4f60-b555-2c36e25e22e1",
+      "name": "Recibir peticion",
+      "webhookId": "d5891ebf-ed17-4975-aebb-b67af256b2c5",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "D5jsMqEmWJIFAd3z",
+          "name": "Header Auth smartstay"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.body.decision }}",
+                    "rightValue": "SUBIR",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    },
+                    "id": "7197445a-d551-44c2-9d63-380d0a9de6b1"
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "subir"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "id": "21d3620f-43d6-4109-9fe4-5253e2dc0b4f",
+                    "leftValue": "={{ $json.body.decision }}",
+                    "rightValue": "BAJAR",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "bajar"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "id": "db2d7e1d-d9f6-4acb-8b52-7129491b7459",
+                    "leftValue": "={{ $json.body.decision }}",
+                    "rightValue": "MANTENER",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "mantener"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "id": "fbb585b6-449c-4e1b-835a-d252743c5026",
+                    "leftValue": "={{ $json.body.decision }}",
+                    "rightValue": "REVISAR",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "revisar"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "id": "1566ff90-a8d4-4fd8-8e47-f1efc4bba398",
+                    "leftValue": "={{ $json.body.decision }}",
+                    "rightValue": "REVISAR PRECIO",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "revisar_precio"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "id": "e3832e74-dcee-470d-941a-31c9e110239d",
+                    "leftValue": "={{ $json.body.decision }}",
+                    "rightValue": "SIN DISPONIBILIDAD",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "sin_disponibilidad"
+            }
+          ]
+        },
+        "options": {
+          "fallbackOutput": "extra"
+        }
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.4,
+      "position": [
+        224,
+        0
+      ],
+      "id": "ed46c9ac-225e-4922-9584-bde3bf7e7c36",
+      "name": "decision tomada"
+    },
+    {
+      "parameters": {
+        "sendTo": "irodrigon2313@gmail.com",
+        "subject": "={{ $json.asunto }}",
+        "message": "={{ $json.mensaje }}",
+        "options": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        672,
+        272
+      ],
+      "id": "ccd0292d-9217-4603-9dcb-582aa16a6c19",
+      "name": "Enviar mensaje si revisar precio",
+      "webhookId": "c970dbb9-7d3d-4c4c-9b14-68e83b19aaa1",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "WksJPdBaZrn704v5",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "schema": {
+          "__rl": true,
+          "mode": "list",
+          "value": "public"
+        },
+        "table": {
+          "__rl": true,
+          "value": "recomendaciones",
+          "mode": "list",
+          "cachedResultName": "recomendaciones"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "revision_necesaria": false,
+            "zona": "={{ $json.zona }}",
+            "tipo_alojamiento": "={{ $json.tipo_alojamiento }}",
+            "precio_actual": "={{ $json.precio_actual }}",
+            "precio_predicho": "={{ $json.precio_predicho }}",
+            "precio_sugerido": "={{ $json.precio_sugerido }}",
+            "decision": "={{ $json.decision }}",
+            "motivo": "={{ $json.motivo }}"
+          },
+          "matchingColumns": [
+            "id"
+          ],
+          "schema": [
+            {
+              "id": "id",
+              "displayName": "id",
+              "required": false,
+              "defaultMatch": true,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "fecha",
+              "displayName": "fecha",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "dateTime",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "zona",
+              "displayName": "zona",
+              "required": true,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "tipo_alojamiento",
+              "displayName": "tipo_alojamiento",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "precio_actual",
+              "displayName": "precio_actual",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "precio_predicho",
+              "displayName": "precio_predicho",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "precio_sugerido",
+              "displayName": "precio_sugerido",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "decision",
+              "displayName": "decision",
+              "required": true,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "motivo",
+              "displayName": "motivo",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "revision_necesaria",
+              "displayName": "revision_necesaria",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "boolean",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.7,
+      "position": [
+        784,
+        -240
+      ],
+      "id": "6cbf8bb0-c871-4432-b9c4-9d0abdd6b3b4",
+      "name": "Insertar precios a subir",
+      "credentials": {
+        "postgres": {
+          "id": "ecz9JlLoVLcDz227",
+          "name": "Postgres account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "caa2b65e-186f-4bbb-b56d-d20bf41126c4",
+              "name": "decision",
+              "value": "={{ $json.body.decision }}",
+              "type": "string"
+            },
+            {
+              "id": "e8d65b00-8c6b-4d1c-961b-993ad6ec9ed8",
+              "name": "zona",
+              "value": "={{ $json.body.zona }}",
+              "type": "string"
+            },
+            {
+              "id": "bfaba9c4-f2da-4596-b7c8-7917ed452c6c",
+              "name": "asunto",
+              "value": "={{ 'SmartStay AI - REVISAR PRECIO - ' + $json.body.zona }}",
+              "type": "string"
+            },
+            {
+              "id": "4c176c83-1abd-4c50-9cc5-7a1e5700a6be",
+              "name": "mensaje",
+              "value": "={{ 'SMARTSTAY AI - REVISION DE PRECIO\\n\\n' + 'Zona: ' + $json.body.zona + '\\n' + 'Tipo de alojamiento: ' + $json.body.tipo_alojamiento + '\\n\\n' + 'Precio actual: ' + $json.body.precio_actual + ' €\\n' + 'Precio estimado: ' + $json.body.precio_predicho + ' €\\n\\n' + 'Decision: ' + $json.body.decision + '\\n' + 'Motivo: ' + $json.body.motivo + '\\n' + 'Reglas aplicadas: ' + ($json.body.reglas_aplicadas || []).join(', ') + '\\n\\n' + 'ACCION: Revisar manualmente el precio antes de modificarlo.' }}",
+              "type": "string"
+            },
+            {
+              "id": "49b4ec6f-81d1-4e41-baeb-4b2b8db2b6f1",
+              "name": "accion",
+              "value": "Solicitar revisión humana del precio",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.5,
+      "position": [
+        480,
+        272
+      ],
+      "id": "c16a5afe-f745-4917-9c38-656a94c683a5",
+      "name": "Preparar revision"
+    },
+    {
+      "parameters": {
+        "calendar": {
+          "__rl": true,
+          "value": "6c9d15f3f26ee23bab14743937bfb7d5034a8f97eb4174102e0f1605dd131cfb@group.calendar.google.com",
+          "mode": "list",
+          "cachedResultName": "prueba"
+        },
+        "start": "={{ $now.plus({ days: 1 }).set({ hour: 10, minute: 0, second: 0, millisecond: 0 }).toISO() }}",
+        "end": "={{ $now.plus({ days: 1 }).set({ hour: 10, minute: 30, second: 0, millisecond: 0 }).toISO() }}",
+        "additionalFields": {
+          "description": "={{ 'SMARTSTAY AI - REVISION DE PRECIO\\n\\n' + 'Zona: ' + $('Recibir peticion').first().json.body.zona + '\\n' + 'Tipo de alojamiento: ' + $('Recibir peticion').first().json.body.tipo_alojamiento + '\\n\\n' + 'Precio actual: ' + $('Recibir peticion').first().json.body.precio_actual + ' €\\n' + 'Precio estimado por ML: ' + $('Recibir peticion').first().json.body.precio_predicho + ' €\\n\\n' + 'Decision: ' + $('Recibir peticion').first().json.body.decision + '\\n' + 'Motivo: ' + $('Recibir peticion').first().json.body.motivo + '\\n' + 'Reglas aplicadas: ' + ($('Recibir peticion').first().json.body.reglas_aplicadas || []).join(', ') + '\\n\\n' + 'ACCION PENDIENTE:\\n' + 'Revisar manualmente el precio del alojamiento antes de realizar cualquier modificacion.' }}",
+          "summary": "={{ 'SmartStay AI - Revisar precio - ' + $('Recibir peticion').first().json.body.zona }}"
+        }
+      },
+      "type": "n8n-nodes-base.googleCalendar",
+      "typeVersion": 1.3,
+      "position": [
+        896,
+        272
+      ],
+      "id": "cfa9f6ee-462a-47b1-aca6-e28b7cdbae44",
+      "name": "Crear evento de revision",
+      "credentials": {
+        "googleCalendarOAuth2Api": {
+          "id": "ABB2jEOxzGS4hTUv",
+          "name": "Google Calendar account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "fa77def7-17df-4223-96e4-0d5a90759649",
+              "name": "zona",
+              "value": "={{ $json.body.zona }}",
+              "type": "string"
+            },
+            {
+              "id": "d01c6301-045c-4cd4-8c4a-aa56e4cbe77e",
+              "name": "tipo_alojamiento",
+              "value": "={{ $json.body.tipo_alojamiento }}",
+              "type": "string"
+            },
+            {
+              "id": "2b1d5455-2696-4b8f-a908-f01c099818de",
+              "name": "precio_actual",
+              "value": "={{ $json.body.precio_actual }}",
+              "type": "string"
+            },
+            {
+              "id": "8980cef2-788c-4333-9327-30f3b5a648fe",
+              "name": "precio_predicho",
+              "value": "={{ $json.body.precio_predicho }}",
+              "type": "string"
+            },
+            {
+              "id": "8a4ef5ba-d41f-4788-8280-dbccb4cd37ad",
+              "name": "precio_sugerido",
+              "value": "={{ $json.body.precio_sugerido }}",
+              "type": "string"
+            },
+            {
+              "id": "03b53464-ea4c-48f6-9e3a-cc233a1811c7",
+              "name": "decision",
+              "value": "={{ $json.body.decision }}",
+              "type": "string"
+            },
+            {
+              "id": "d2cc655e-05dc-45c3-ab2e-fbd7efda8e7c",
+              "name": "motivo",
+              "value": "={{ $json.body.motivo }}",
+              "type": "string"
+            },
+            {
+              "id": "352beb56-18ca-4b1e-8ada-a232bff921f1",
+              "name": "revision_necesaria",
+              "value": "={{ $json.body.revision_necesaria }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.5,
+      "position": [
+        448,
+        -240
+      ],
+      "id": "95d2d15b-fca6-470c-a6c6-e6102724b39e",
+      "name": "Preparar subida"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "d7fcfcf4-7734-4f12-9165-41448f401c4e",
+              "name": "fecha",
+              "value": "={{ $now.toFormat('yyyy-MM-dd HH:mm:ss') }}",
+              "type": "string"
+            },
+            {
+              "id": "96982e71-d8e2-4c58-94ab-a4f837f8dc2e",
+              "name": "zona",
+              "value": "={{ $json.body.zona }}",
+              "type": "string"
+            },
+            {
+              "id": "42717d93-cdda-4bca-b0b7-e2fea7d871f9",
+              "name": "tipo_alojamiento",
+              "value": "={{ $json.body.tipo_alojamiento }}",
+              "type": "string"
+            },
+            {
+              "id": "4d01218d-59da-44aa-afba-9f9df474359b",
+              "name": "precio_actual",
+              "value": "={{ $json.body.precio_actual }}",
+              "type": "number"
+            },
+            {
+              "id": "f431fea5-59cc-48e9-b209-04d0690a64ef",
+              "name": "precio_predicho",
+              "value": "={{ $json.body.precio_predicho }}",
+              "type": "string"
+            },
+            {
+              "id": "466ad156-73e5-4dfb-8b7c-1e771999d9e7",
+              "name": "precio_sugerido",
+              "value": "={{ $json.body.precio_predicho }}",
+              "type": "string"
+            },
+            {
+              "id": "f2435ace-f3f6-4269-8f13-539990df6971",
+              "name": "decision",
+              "value": "={{ $json.body.decision }}",
+              "type": "string"
+            },
+            {
+              "id": "3934ffa0-6c88-4652-a8e0-fb8ecdeb70a3",
+              "name": "motivo",
+              "value": "={{ $json.body.motivo }}",
+              "type": "string"
+            },
+            {
+              "id": "eaca7971-d680-4f21-9c38-f39112fa7e1e",
+              "name": "revision_necesaria",
+              "value": "={{ $json.body.revision_necesaria }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.5,
+      "position": [
+        464,
+        -96
+      ],
+      "id": "188082b1-1532-4e5d-8210-b1d489106dcd",
+      "name": "Preparar bajada"
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1iFB8crloYXyNjqjSCtKGaJGboe32gkNbKy4JW9oXvtg",
+          "mode": "list",
+          "cachedResultName": "SmartStay_recomendaciones",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1iFB8crloYXyNjqjSCtKGaJGboe32gkNbKy4JW9oXvtg/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Hoja 1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1iFB8crloYXyNjqjSCtKGaJGboe32gkNbKy4JW9oXvtg/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "fecha": "={{ $json.fecha }}",
+            "zona": "={{ $json.zona }}",
+            "tipo_alojamiento": "={{ $json.tipo_alojamiento }}",
+            "precio_actual": "={{ $json.precio_actual }}",
+            "precio_predicho": "={{ $json.precio_predicho }}",
+            "precio_sugerido": "={{ $json.precio_sugerido }}",
+            "decision": "={{ $json.decision }}",
+            "motivo": "={{ $json.motivo }}",
+            "revision": "={{ $json.revision }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "fecha",
+              "displayName": "fecha",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "zona",
+              "displayName": "zona",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "tipo_alojamiento",
+              "displayName": "tipo_alojamiento",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "precio_actual",
+              "displayName": "precio_actual",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "precio_predicho",
+              "displayName": "precio_predicho",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "precio_sugerido",
+              "displayName": "precio_sugerido",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "decision",
+              "displayName": "decision",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "motivo",
+              "displayName": "motivo",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "revision",
+              "displayName": "revision",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        784,
+        -96
+      ],
+      "id": "b5c2ebc6-33a9-4b82-8d39-3e3327d8c6ba",
+      "name": "insertar bajada en hoja de calculo",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "iQcj64f1WLtCXrsG",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "2d47007c-25e6-45bb-b4f7-b23bcb570436",
+              "name": "fecha",
+              "value": "={{ $now.toFormat('yyyy-MM-dd HH:mm:ss') }}",
+              "type": "string"
+            },
+            {
+              "id": "cbe41b3e-9ea7-43fd-90cf-0486cf37795b",
+              "name": "zona",
+              "value": "={{ $json.body.zona }}",
+              "type": "string"
+            },
+            {
+              "id": "b39cb359-3224-4a25-b8eb-aedfdd8a677a",
+              "name": "tipo_alojamiento",
+              "value": "={{ $json.body.tipo_alojamiento }}",
+              "type": "string"
+            },
+            {
+              "id": "9a8d6d87-64a9-4425-b7f4-dc1b94379f37",
+              "name": "precio_actual",
+              "value": "={{ $json.body.precio_actual }}",
+              "type": "string"
+            },
+            {
+              "id": "1b090b74-09af-4002-9744-f94f65639049",
+              "name": "precio_predicho",
+              "value": "={{ $json.body.precio_predicho }}",
+              "type": "string"
+            },
+            {
+              "id": "f3f05a5e-121a-43d7-bb9a-d68aaddb0b08",
+              "name": "decision",
+              "value": "={{ $json.body.decision }}",
+              "type": "string"
+            },
+            {
+              "id": "748af2b2-57ed-450f-a9ff-d4fc363a3640",
+              "name": "motivo",
+              "value": "={{ $json.body.motivo }}",
+              "type": "string"
+            },
+            {
+              "id": "a4381e62-412d-4fe1-a558-99152bf07749",
+              "name": "revision_necesaria",
+              "value": "={{ $json.body.revision_necesaria }}",
+              "type": "string"
+            },
+            {
+              "id": "ff3e0eb3-8253-4fc1-a7a6-5a1d299becd6",
+              "name": "mensaje",
+              "value": "={{\n\"🏠 SMARTSTAY AI - REVISIÓN\\n\\n\" +\n\"📅 Fecha: \" + $now.toFormat('yyyy-MM-dd HH:mm:ss') + \"\\n\" +\n\"📍 Zona: \" + $json.body.zona + \"\\n\" +\n\"🏡 Alojamiento: \" + $json.body.tipo_alojamiento + \"\\n\\n\" +\n\"💰 Precio actual: \" + $json.body.precio_actual + \" €\\n\" +\n\"🤖 Precio estimado: \" + $json.body.precio_predicho + \" €\\n\\n\" +\n\"⚠️ Decisión: \" + $json.body.decision + \"\\n\\n\" +\n\"📝 Motivo: \" + $json.body.motivo + \"\\n\\n\" +\n\"🔎 Se recomienda revisar manualmente el alojamiento.\"\n}}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.5,
+      "position": [
+        608,
+        0
+      ],
+      "id": "80964bf6-b639-4271-bc7e-cd54c633bb2e",
+      "name": "Preparar revision telegram"
+    },
+    {
+      "parameters": {
+        "chatId": "9121847980",
+        "text": "={{ $json.mensaje }}",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        944,
+        80
+      ],
+      "id": "47fd5934-aab0-4fba-9d0b-0c7dfd19c68f",
+      "name": "Send a text message",
+      "webhookId": "faad8035-e145-4c5e-8cd5-bf8d5d365807",
+      "credentials": {
+        "telegramApi": {
+          "id": "XIU9zUAUlEnoqqD0",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "38a43f07-8e1a-47ca-a471-90b785a20c26",
+              "name": "fecha",
+              "value": "={{ $now.toFormat('yyyy-MM-dd HH:mm:ss') }}",
+              "type": "string"
+            },
+            {
+              "id": "e8ee3641-2039-48c1-acb2-f2fd3cd805d6",
+              "name": "zona",
+              "value": "={{ $json.body.zona }}",
+              "type": "string"
+            },
+            {
+              "id": "b4a92de1-9019-47d1-b07c-19d2be6a41e3",
+              "name": "tipo_alojamiento",
+              "value": "={{ $json.body.tipo_alojamiento }}",
+              "type": "string"
+            },
+            {
+              "id": "21ac452c-c70a-41f2-9428-c1984a9f814f",
+              "name": "precio_actual",
+              "value": "={{ $json.body.precio_actual }}",
+              "type": "string"
+            },
+            {
+              "id": "af5fe8b6-140b-4f99-b314-7bfdf764fe9e",
+              "name": "decision",
+              "value": "={{ $json.body.decision }}",
+              "type": "string"
+            },
+            {
+              "id": "e64785e5-008e-4111-9e89-e90b0ecdee83",
+              "name": "motivo",
+              "value": "={{ $json.body.motivo }}",
+              "type": "string"
+            },
+            {
+              "id": "c61eb1fd-0e6e-40a3-9511-65191fa8065b",
+              "name": "asunto",
+              "value": "={{ \"SmartStay AI - Sin disponibilidad - \" + $json.body.zona }}",
+              "type": "string"
+            },
+            {
+              "id": "96da333f-33fa-43ec-97df-7963bfb03bd9",
+              "name": "mensaje",
+              "value": "={{ \"SMARTSTAY AI - AVISO DE DISPONIBILIDAD\\n\\n\" + \"Fecha: \" + $now.toFormat('yyyy-MM-dd HH:mm:ss') + \"\\n\" + \"Zona: \" + $json.body.zona + \"\\n\" + \"Tipo de alojamiento: \" + $json.body.tipo_alojamiento + \"\\n\\n\" + \"Precio actual: \" + $json.body.precio_actual + \" €\\n\\n\" + \"Decisión: \" + $json.body.decision + \"\\n\\n\" + \"Motivo: \" + $json.body.motivo + \"\\n\\n\" + \"El alojamiento no tiene días disponibles para nuevas reservas.\\n\" + \"No se recomienda modificar el precio mientras no exista disponibilidad.\\n\\n\" + \"Notificación automática de SmartStay AI.\" }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.5,
+      "position": [
+        464,
+        128
+      ],
+      "id": "ed068fa7-4729-4512-a3d1-841d747c7823",
+      "name": "Preparar sin disponibilidad"
+    },
+    {
+      "parameters": {
+        "sendTo": "irodrigon2313@gmail.com",
+        "subject": "={{ $json.asunto }}",
+        "message": "={{ $json.mensaje }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        688,
+        128
+      ],
+      "id": "0fa53acd-45a1-4a71-a12b-478a0533f48d",
+      "name": "enviar mensaje si sin disponibilidad",
+      "webhookId": "3c2fba3a-7771-4eef-b49c-234bddef44d4",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "WksJPdBaZrn704v5",
+          "name": "Gmail account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Recibir peticion": {
+      "main": [
+        [
+          {
+            "node": "decision tomada",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "decision tomada": {
+      "main": [
+        [
+          {
+            "node": "Preparar subida",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Preparar bajada",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [],
+        [
+          {
+            "node": "Preparar revision telegram",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Preparar revision",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Preparar sin disponibilidad",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Enviar mensaje si revisar precio": {
+      "main": [
+        [
+          {
+            "node": "Crear evento de revision",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Preparar revision": {
+      "main": [
+        [
+          {
+            "node": "Enviar mensaje si revisar precio",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Preparar subida": {
+      "main": [
+        [
+          {
+            "node": "Insertar precios a subir",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Preparar bajada": {
+      "main": [
+        [
+          {
+            "node": "insertar bajada en hoja de calculo",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "insertar bajada en hoja de calculo": {
+      "main": [
+        []
+      ]
+    },
+    "Preparar revision telegram": {
+      "main": [
+        [
+          {
+            "node": "Send a text message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Preparar sin disponibilidad": {
+      "main": [
+        [
+          {
+            "node": "enviar mensaje si sin disponibilidad",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "2e3c00b0-a82f-4563-b5f2-bd7f329205f5",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "e48eceae44ce378c1c0acdc1923e53759c6ca0f04db4f47b57df61d2d9218175"
+  },
+  "nodeGroups": [],
+  "id": "NWG2XValP5FLzUhe",
+  "tags": []
+}

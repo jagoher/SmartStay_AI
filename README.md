@@ -312,3 +312,5 @@ El resultado es un **prototipo funcional de apoyo a la decisión**, con limitaci
 ---
 
 **Documentación técnica complementaria:** `Memoria_Tecnica_n8n_SmartStay_AI.pdf` (configuración detallada, ramas, incidencias y pruebas de integración).
+
+https://github.com/jagoher/SmartStay_AI.

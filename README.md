@@ -3,8 +3,6 @@
 
 **Sistema de apoyo a la decisión para estimar precios de alojamientos turísticos en España mediante Machine Learning, reglas de negocio y automatización con n8n.**
 
-**Proyecto académico · Reto 1 (SAA + PIA + MIA) · Curso 2026–2027**
-
 > **Alcance:** SmartStay AI es un prototipo. Sus predicciones son orientativas y **no modifica automáticamente los precios publicados en Airbnb**. La revisión humana sigue siendo necesaria para las decisiones relevantes.
 
 ## 1. Objetivo y necesidad de negocio

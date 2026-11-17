@@ -11,6 +11,24 @@ El proyecto estima el **precio por noche** de un alojamiento turístico a partir
 
 Está orientado a anfitriones y gestores que necesitan referencias para revisar precios y priorizar casos. Las posibles mejoras de eficiencia son objetivos del prototipo, **no beneficios cuantificados**.
 
+IA débil y tipo de aprendizaje de SmartStay AI
+
+Nuestro sistema, SmartStay AI, es un ejemplo de inteligencia artificial débil, porque está diseñado para realizar una tarea concreta: predecir el precio de un alojamiento turístico a partir de sus características y ayudar a tomar decisiones sobre ese precio.
+
+Se considera IA débil porque, aunque puede aprender patrones de los datos y hacer predicciones, no tiene una inteligencia general ni puede realizar tareas para las que no ha sido diseñado.
+
+En cambio, una IA fuerte sería una inteligencia artificial con capacidades cognitivas generales, capaz de comprender, razonar y aprender en distintos ámbitos de una forma comparable a la inteligencia humana. Actualmente, este tipo de inteligencia artificial sigue siendo un objetivo de investigación.
+
+En cuanto al tipo de aprendizaje, nuestro sistema utiliza aprendizaje automático supervisado, concretamente un problema de regresión.
+
+Esto significa que hemos entrenado el modelo con un conjunto de datos de alojamientos en el que ya conocíamos el precio de cada uno. El Random Forest aprende las relaciones entre las características de los alojamientos, como la ubicación, el tipo de habitación, la disponibilidad o las reseñas, y su precio.
+
+Después, cuando introducimos los datos de un nuevo alojamiento en Streamlit, el modelo utiliza los patrones aprendidos para estimar un precio.
+
+Es un problema de regresión porque queremos predecir un valor numérico continuo, en nuestro caso, un precio en euros. Si quisiéramos predecir una categoría, por ejemplo, si un alojamiento es barato, medio o caro, estaríamos hablando de clasificación.
+
+Por último, la diferencia con el aprendizaje no supervisado es que, en este último, los datos no incluyen una variable objetivo conocida que el modelo deba predecir. En lugar de aprender a estimar precios conocidos, podría utilizarse, por ejemplo, para agrupar alojamientos con características similares y descubrir patrones sin haber definido previamente esos grupos.
+
 ## 2. Arquitectura
 
 ```text

@@ -257,8 +257,6 @@ SmartStay_AI/
 └── README.md
 ```
 
-> **Nota:** este árbol es una guía basada en la estructura documentada; comprobar los nombres reales antes de publicar el repositorio. No se ha verificado que todos los archivos estén presentes.
-
 ### Dependencias principales
 
 `python`, `pandas`, `numpy`, `scikit-learn`, `xgboost`, `shap`, `matplotlib`, `mlflow`, `joblib`, `streamlit` y `requests`. El flujo n8n requiere además su instalación y credenciales válidas para los servicios externos. **Las versiones exactas deben obtenerse del entorno y de los archivos reales del proyecto.**
